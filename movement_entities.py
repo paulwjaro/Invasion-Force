@@ -1,8 +1,9 @@
 import pygame
 
+collision_types = ['player', 'projectile', 'enemy']
 
 class MovementEntity:
-    def __init__(self, _x_pos, _y_pos, _spd, _collision_type, _hitlist):
+    def __init__(self, _spd, _collision_type, _hitlist, _x_pos=0, _y_pos=0):
         self.x_pos = _x_pos
         self.y_pos = _y_pos
         self.spd = _spd

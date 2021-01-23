@@ -1,5 +1,16 @@
 from pygame import time
 
+timer_list = []
+
+
+def game_timers():
+    if len(timer_list) > 0:
+        for timer in timer_list:
+            if timer.timer_ring:
+                timer_list.pop(timer_list.index(timer))
+            else:
+                timer.run_timer()
+
 
 class Timer():
     def __init__(self, func=None):

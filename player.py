@@ -5,7 +5,7 @@ from gamefx import CustomSprite
 
 class Player(MovementEntity):
     def __init__(self, _x_pos, _y_pos, _spd, _collision_type, _hitlist):
-        super().__init__(_x_pos, _y_pos, _spd, _collision_type, _hitlist)
+        super().__init__(_spd, _collision_type, _hitlist, _x_pos=_x_pos, _y_pos=_y_pos)
         self.sprite = CustomSprite('Assets/Player_1.png', 64)
         self.health = 10
         self.fired = False

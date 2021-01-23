@@ -4,7 +4,7 @@ from gamefx import CustomSprite
 
 class Projectile(MovementEntity):
     def __init__(self, _screen, _dir, _x_pos, _y_pos, _spd, _collision_type, _hitlist):
-        super().__init__(_x_pos, _y_pos, _spd, _collision_type, _hitlist)
+        super().__init__(_spd, _collision_type, _hitlist, _x_pos=_x_pos, _y_pos=_y_pos)
         self.sprite = CustomSprite('Assets/Beam_Green.png', 32)
         self.direction = _dir
         self.screen = _screen

@@ -1,7 +1,6 @@
 import pygame
 import game
-from input import InputHandler
-from game import player
+from enemies import Paths
 
 pygame.init()
 
@@ -13,9 +12,7 @@ pygame.display.set_icon(logo_sprite)
 pygame.display.set_caption('Invasion Force')
 
 current_game = game.Game(screen)
-
-player_img = pygame.image.load('Assets/Player_1.png')
-player_sprite = pygame.transform.scale(player_img, (64, 64))
+current_game.create_game()
 
 while current_game.running:
     screen.fill((19, 12, 30))
