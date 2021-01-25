@@ -1,6 +1,7 @@
+from player import Player
 from enemies import Enemy, Paths
+from gamefx import CustomSprite
 from misc import Timer, timer_list
-from movement_entities import collision_types
 
 
 enemy_list = ["Assets/Drone_1.png", "Assets/Drone_2.png", "Assets/Bot_1.png", "Assets/Bot_2.png",
@@ -15,48 +16,60 @@ paths = {
 path_system = Paths()
 
 for path in paths:
-    new_path = path_system.create_path(len(path), paths[path])
-
-
-class Level:
-    def __init__(self, _screen):
-        self.screen = _screen
-        self.started = False
-        self.squads = []
-        self.add_list = []
+    path_system.create_path(paths[path])
         
     
-    def start(self):
-        self.started = True
-        self.create_squad()
-        
-    def run(self):
-        if self.started:
-            for enemy in self.squads[0].squad_members:
-                self.add_list.append(enemy)
-            print(self.add_list)
-            
-
-    def load_enemy(self, _enemy):
-        return _enemy
-
-    def create_squad(self):
-        new_squad = Squad(1, self.screen)
-        new_squad.initialize_squad()
-        self.squads.append(new_squad)
+    # new_path_length = len(paths[path])
+    # new_nodex = paths[path][0][0]
+    # new_nodex = paths[path][0][1]
 
 
-class Squad:
-    def __init__(self, _size, _screen):
-        self.size = _size
+
+
+
+class ObjectHandler:
+    def __init__(self, _screen):
         self.screen = _screen
-        self.squad_members = []
-        
-    def initialize_squad(self):
-        for i in range(self.size):
-            self.add_member(self.screen, 2)
-        
-    def add_member(self, _screen, _spd):
-        new_member = Enemy(_screen, _spd, _collision_type=collision_types[2], _hitlist=collision_types[:1], _path=path_system.path_list[0])
-        self.squad_members.append(new_member)
+        self.active_objects = []
+        self.player = None
+
+    def create(self):
+        self.player = Player(self.screen, 320, 420, 64, 64, 3, 'player', ['enemies'], _sprite=CustomSprite('Assets/Player_1.png', 64))
+        self.add_object_to_game(self.player)
+        new_enemy = Enemy(self.screen, 2, 'enemies', ['player', 'projectiles'], 64, 64, path_system.path_list[1], _sprite=CustomSprite('Assets/Drone_2.png', 64))
+        self.add_object_to_game(new_enemy)
+
+    def object_handler(self, _screen):
+        if len(self.active_objects) > 0:
+            for _object in self.active_objects:
+                if _object.destroyed:
+                    self.active_objects.pop(self.active_objects.index(_object))
+
+                else:
+                    _object.play()
+                    if _object.collision_layer != 'none':
+                        for collisions in self.active_objects:
+                            if _object != collisions:
+                                if _object.rect.colliderect(collisions.rect):
+                                    if collisions.collision_layer in _object.collision_mask:
+                                        _object.hit()
+                                        collisions.hit()
+
+
+
+
+        # if len(self.collision_objects) > 0:
+        #     for _object in self.collision_objects:
+        #         if _object.destroyed:
+        #             self.collision_objects.pop(self.collision_objects.index(_object))
+        #         else:
+        #             for collisions in self.collision_objects:
+        #                 if _object != collisions:
+        #                     if _object.rect.colliderect(collisions.rect):
+        #                         if _object.collision_type in collisions.can_hit:
+        #                             _object.hit()
+        #                             collisions.hit()
+
+    def add_object_to_game(self, _object):
+        self.active_objects.append(_object)
 

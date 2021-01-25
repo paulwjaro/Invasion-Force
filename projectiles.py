@@ -1,11 +1,10 @@
-from movement_entities import MovementEntity
+from game_objects import GameObject
 from gamefx import CustomSprite
 
 
-class Projectile(MovementEntity):
-    def __init__(self, _screen, _dir, _x_pos, _y_pos, _spd, _collision_type, _hitlist):
-        super().__init__(_spd, _collision_type, _hitlist, _x_pos=_x_pos, _y_pos=_y_pos)
-        self.sprite = CustomSprite('Assets/Beam_Green.png', 32)
+class Projectile(GameObject):
+    def __init__(self, _screen, _dir, _x_pos, _y_pos, _spd, _collision_layer, _mask_list, c_width, c_height, _sprite=CustomSprite):
+        super().__init__(_screen, _spd, _collision_layer, _mask_list, c_width, c_height, _x_pos=_x_pos, _y_pos=_y_pos, _sprite=_sprite)
         self.direction = _dir
         self.screen = _screen
 
@@ -14,13 +13,9 @@ class Projectile(MovementEntity):
         if self.y_pos <= 20:
             self.destroyed = True
 
-    def draw(self, _screen, _x_pos, _y_pos):
-        _screen.blit(self.sprite.sprite, (_x_pos, _y_pos))
-
     def hit(self):
         self.destroyed = True
 
-    def play(self, _screen):
-        self.check_for_collision(32, 32, _screen)
-        self.draw(_screen, self.x_pos, self.y_pos)
+    def step(self):
+        GameObject.step(self)
         self.move(self.direction)
