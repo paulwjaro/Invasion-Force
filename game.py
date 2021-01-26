@@ -1,6 +1,7 @@
 from input import InputHandler
 from misc import *
-from levels import ObjectHandler
+from levels import Level, ObjectHandler
+from level_data import levels
 
 
 FPS = 60
@@ -16,7 +17,7 @@ class Game:
         self.score = 0
         self.pt = time.get_ticks()
         self.game_levels = []
-        self.current_level = 0
+        self.current_level = 1
 
     def main(self, _screen):
         # Set Up Delta Time
@@ -28,6 +29,7 @@ class Game:
         game_input.game_input()
         self.input_checks(_screen)
         self.object_handler.object_handler(self.screen)
+        self.game_levels[0].run()
 
         # Set FPS
         clock.tick(FPS)
@@ -35,6 +37,9 @@ class Game:
     # Game Functions
     def create_game(self):
         self.object_handler.create()
+        level_1 = Level(self.screen, self.object_handler, levels[str(self.current_level)])
+        level_1.create()
+        self.game_levels.append(level_1)
 
     def input_checks(self, _screen):
         if game_input.quit:
@@ -51,10 +56,4 @@ class Game:
                 self.object_handler.player.fired = False
 
         if game_input.key_enter:
-            pass
-    
-
-
-
-
-
+            self.game_levels[self.current_level - 1].level_started = True

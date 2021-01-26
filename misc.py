@@ -1,24 +1,13 @@
 from pygame import time
 
-timer_list = []
 
-
-def game_timers():
-    if len(timer_list) > 0:
-        for timer in timer_list:
-            if timer.timer_ring:
-                timer_list.pop(timer_list.index(timer))
-            else:
-                timer.run_timer()
-
-
-class Timer():
-    def __init__(self, func=None):
+class Timer:
+    def __init__(self, _length=1000, _func=None):
         self.timer_ring = False
         self.start_time = time.get_ticks()
         self.current_time = 0
-        self.length = 1000
-        self.func = func
+        self.length = _length
+        self.func = _func
 
     def run_timer(self):
         self.current_time = time.get_ticks()
@@ -31,4 +20,15 @@ class Timer():
                 self.func()
 
 
+def create_timer(self, _func=None):
+    new_timer = Timer(_func=_func)
+    self.timers.append(new_timer)
 
+
+def run_timers(self):
+    if len(self.timers) > 0:
+        for t in self.timers:
+            if not t.timer_ring:
+                t.run_timer()
+            else:
+                self.timers.pop(self.timers.index(t))

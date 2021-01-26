@@ -3,8 +3,10 @@ from gamefx import CustomSprite
 
 
 class Projectile(GameObject):
-    def __init__(self, _screen, _dir, _x_pos, _y_pos, _spd, _collision_layer, _mask_list, c_width, c_height, _sprite=CustomSprite):
-        super().__init__(_screen, _spd, _collision_layer, _mask_list, c_width, c_height, _x_pos=_x_pos, _y_pos=_y_pos, _sprite=_sprite)
+    def __init__(self, _screen, _dir, _x_pos, _y_pos, _spd, _collision_layer, _mask_list, c_width, c_height,
+                 _sprite=CustomSprite):
+        super().__init__(_screen, _spd, _collision_layer, _mask_list, c_width, c_height,
+                         _x_pos=_x_pos, _y_pos=_y_pos, _sprite=_sprite)
         self.direction = _dir
         self.screen = _screen
 

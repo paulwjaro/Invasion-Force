@@ -1,8 +1,10 @@
 import pygame
+from misc import Timer
 
 
 class GameObject:
-    def __init__(self, _screen, _spd, _collision_layer, _mask_list, c_width, c_height, _x_pos=0, _y_pos=0, _sprite=None):
+    def __init__(self, _screen, _spd, _collision_layer, _mask_list, c_width, c_height,
+                 _x_pos=0, _y_pos=0, _sprite=None):
         self.screen = _screen
         self.x_pos = _x_pos
         self.y_pos = _y_pos
@@ -14,9 +16,10 @@ class GameObject:
         self.collision_mask = _mask_list
         self.collision_shape = tuple
         self.rect = pygame.Rect((self.x_pos, self.y_pos, 0, 0))
+        self.timers = []
 
     def create(self):
-        return None
+        self.destroyed = False
 
     def step(self):
         if self.collision_layer != 'none':
@@ -38,3 +41,12 @@ class GameObject:
         self.collision_shape = (self.x_pos, self.y_pos, collision_x, collision_y)
         self.rect = pygame.Rect(self.collision_shape)
         # pygame.draw.rect(_screen, (255, 255, 255), self.collision_shape)
+
+    def create_timer(self, _func=None):
+        new_timer = Timer(func=_func)
+        self.timers.append(new_timer)
+
+    def run_timers(self):
+        if len(self.timers) > 0:
+            for t in self.timers:
+                t.run_timer()
