@@ -1,6 +1,6 @@
-from player import Player
+from player import *
 from enemies import Enemy
-from gamefx import CustomSprite
+from gamefx import StarGen
 import misc
 
 
@@ -116,13 +116,17 @@ class ObjectHandler:
         self.screen = _screen
         self.active_objects = []
         self.player = None
+        self.star_generator = StarGen(self.screen)
 
     def create(self):
-        self.player = Player(self.screen, 320, 420, 64, 64, 3, 'player', ['enemies'],
-                             _sprite=CustomSprite('Assets/Player_1.png', 64))
+        data = player_data['sprites']['0']
+        self.player = Player(self.screen, 320, 460, data['c_width'], data['c_height'], data['spd'], data['collision_layer'], data['collision_mask'],
+                             _sprite=data['sprite'])
         self.add_object_to_game(self.player)
+        self.star_generator.star_scatter(50)
 
     def object_handler(self, _screen):
+        self.star_generator.play()
         if len(self.active_objects) > 0:
             for _object in self.active_objects:
                 if _object.destroyed:
@@ -135,7 +139,11 @@ class ObjectHandler:
                             if _object != collisions:
                                 if _object.rect.colliderect(collisions.rect):
                                     if collisions.collision_layer in _object.collision_mask:
-                                        _object.hit()
+                                        if type(_object) == Projectile:
+                                            if _object.owner != collisions:
+                                                _object.hit()
+                                        else:
+                                            _object.hit()
 
     def add_object_to_game(self, _object):
         self.active_objects.append(_object)

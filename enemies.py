@@ -18,7 +18,6 @@ class Enemy(GameObject):
         self.health = 2
 
     def step(self):
-        GameObject.step(self)
         self.move()
         if self.health <= 0:
             self.strand.enemy_list.pop(self.strand.enemy_list.index(self))
@@ -69,11 +68,64 @@ class Paths:
 
 
 class Node:
-    def __init__(self, _x, _y, *_screen):
+    def __init__(self, _x, _y, _screen=None):
         self.screen = _screen
         self.x_pos = _x
         self.y_pos = _y
 
     # noinspection PyTypeChecker
     def draw_node(self):
-        pygame.draw.rect(self.screen, (255, 255, 255), (self.x_pos, self.y_pos, 10, 10))
+        if self.screen is not None:
+            pygame.draw.rect(self.screen, (255, 255, 255), (self.x_pos, self.y_pos, 10, 10))
+
+
+enemies_data = {
+    'Drone_1': {
+        'spd': 2,
+        'collision_layer': 'enemies',
+        'collision_mask': ['player', 'projectiles'],
+        "c_width": 64,
+        'c_height': 64,
+        'sprite': CustomSprite('Assets/Drone_1.png', 64)
+    },
+    'Drone_2': {
+            'spd': 2,
+            'collision_layer': 'enemies',
+            'collision_mask': ['player', 'projectiles'],
+            "c_width": 64,
+            'c_height': 64,
+            'sprite': CustomSprite('Assets/Drone_2.png', 64)
+    },
+    'Bot_1': {
+        'spd': 3,
+        'collision_layer': 'enemies',
+        'collision_mask': ['player', 'projectiles'],
+        "c_width": 60,
+        'c_height': 32,
+        'sprite': CustomSprite('Assets/Bot_1.png', 64)
+    },
+    'Bot_2': {
+        'spd': 3,
+        'collision_layer': 'enemies',
+        'collision_mask': ['player', 'projectiles'],
+        "c_width": 60,
+        'c_height': 32,
+        'sprite': CustomSprite('Assets/Bot_2.png', 64)
+    },
+    'Ship_1': {
+        'spd': 4,
+        'collision_layer': 'enemies',
+        'collision_mask': ['player', 'projectiles'],
+        "c_width": 64,
+        'c_height': 64,
+        'sprite': CustomSprite('Assets/Ship_1.png', 64)
+    },
+    'Ship_2': {
+        'spd': 4,
+        'collision_layer': 'enemies',
+        'collision_mask': ['player', 'projectiles'],
+        "c_width": 64,
+        'c_height': 64,
+        'sprite': CustomSprite('Assets/Ship_2.png', 64)
+    }
+}

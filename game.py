@@ -2,11 +2,13 @@ from input import InputHandler
 from misc import *
 from levels import Level, ObjectHandler
 from level_data import levels
+from projectiles import *
 
 
 FPS = 60
 clock = time.Clock()
 game_input = InputHandler()
+
 
 
 class Game:

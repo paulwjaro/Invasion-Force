@@ -1,6 +1,6 @@
 from game_objects import GameObject
 from gamefx import CustomSprite
-from projectiles import Projectile
+from projectiles import *
 
 
 class Player(GameObject):
@@ -14,15 +14,31 @@ class Player(GameObject):
         self.left_axis = 0
 
     def step(self):
-        GameObject.step(self)
         self.move(self.right_axis, self.left_axis)
 
     def fire(self, _screen, _collision_layer, _mask_list):
         self.fired = True
-        bullet = Projectile(self.screen, -1, self.x_pos, self.y_pos, 7, 'projectiles', ['enemies'], 32, 32,
-                            _sprite=CustomSprite('Assets/Beam_Green.png', 32))
+        bullet_data = projectile_data['Beam_Green']
+        bullet = Projectile(self.screen, -1, self.x_pos - bullet_data['c_width'], self.y_pos - bullet_data['c_height'],
+                            bullet_data['spd'], bullet_data['collision_layer'], bullet_data['collision_mask'],
+                            bullet_data['c_width'], bullet_data['c_height'],
+                            _sprite=bullet_data['sprite'], _owner=self)
         return bullet
 
     def move(self, _r_axis, _l_axis):
         axis = _r_axis - _l_axis
         self.x_pos += axis * self.spd
+
+
+player_data = {
+    "sprites": {
+        '0': {
+            'c_width': 48,
+            'c_height': 48,
+            'collision_layer': 'player',
+            'collision_mask': ['enemies', 'projectiles'],
+            'spd': 3,
+            'sprite': CustomSprite('Assets/Player_1.png', 64)
+        }
+    }
+}

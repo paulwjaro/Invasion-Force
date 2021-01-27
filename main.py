@@ -1,6 +1,7 @@
 import pygame
 import game
 from enemies import Paths
+from projectiles import *
 
 pygame.init()
 
@@ -13,6 +14,8 @@ pygame.display.set_caption('Invasion Force')
 
 current_game = game.Game(screen)
 current_game.create_game()
+
+
 
 while current_game.running:
     screen.fill((19, 12, 30))
