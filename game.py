@@ -2,13 +2,11 @@ from input import InputHandler
 from misc import *
 from levels import Level, ObjectHandler
 from level_data import levels
-from projectiles import *
 
 
 FPS = 60
 clock = time.Clock()
 game_input = InputHandler()
-
 
 
 class Game:
@@ -32,6 +30,7 @@ class Game:
         self.input_checks(_screen)
         self.object_handler.object_handler(self.screen)
         self.game_levels[0].run()
+        self.update_score()
 
         # Set FPS
         clock.tick(FPS)
@@ -59,3 +58,8 @@ class Game:
 
         if game_input.key_enter:
             self.game_levels[self.current_level - 1].level_started = True
+
+    def update_score(self):
+        if self.object_handler.score != 0:
+            self.score += self.object_handler.score
+            self.object_handler.score = 0

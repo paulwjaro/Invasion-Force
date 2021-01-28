@@ -103,7 +103,7 @@ class Strand:
     def create_enemy(self):
         enemy_data = self.strand_data['enemy']
         new_enemy = Enemy(self.screen, enemy_data['spd'], enemy_data['collision_layer'], enemy_data['collision_mask'], enemy_data['c_width'], enemy_data['c_height'], self.strand_data['path'],
-                          _sprite=enemy_data['sprite'], _strand=self, _object_handler=self.handler)
+                          enemy_data['points'], _sprite=enemy_data['sprite'], _strand=self, _object_handler=self.handler)
         self.handler.add_object_to_game(new_enemy)
         self.enemy_list.append(new_enemy)
         self.enemies_count -= 1
@@ -114,6 +114,7 @@ class Strand:
 class ObjectHandler:
     def __init__(self, _screen):
         self.screen = _screen
+        self.score = 0
         self.active_objects = []
         self.player = None
         self.star_generator = StarGen(self.screen)
@@ -130,6 +131,9 @@ class ObjectHandler:
         if len(self.active_objects) > 0:
             for _object in self.active_objects:
                 if _object.destroyed:
+                    if type(_object) == Enemy:
+                        self.score += _object.points
+                        print(self.score)
                     self.active_objects.pop(self.active_objects.index(_object))
 
                 else:

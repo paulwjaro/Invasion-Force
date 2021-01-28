@@ -4,7 +4,7 @@ import pygame
 
 
 class Enemy(GameObject):
-    def __init__(self, _screen, _spd, _collision_layer, _mask_list, c_width, c_height, _path, _sprite=CustomSprite, _strand=None, _object_handler=None):
+    def __init__(self, _screen, _spd, _collision_layer, _mask_list, c_width, c_height, _path, _points, _sprite=CustomSprite, _strand=None, _object_handler=None):
         super().__init__(_screen, _spd, _collision_layer, _mask_list, c_width, c_height, _sprite=_sprite)
         self.path = _path
         self.current_node = _path[0]
@@ -13,6 +13,7 @@ class Enemy(GameObject):
         self.screen = _screen
         self.strand = _strand
         self.handler = _object_handler
+        self.points = _points
         self.x_dir = 1
         self.y_dir = 1
         self.health = 2
@@ -86,7 +87,8 @@ enemies_data = {
         'collision_mask': ['player', 'projectiles'],
         "c_width": 64,
         'c_height': 64,
-        'sprite': CustomSprite('Assets/Drone_1.png', 64)
+        'sprite': CustomSprite('Assets/Drone_1.png', 64),
+        'points': 100
     },
     'Drone_2': {
             'spd': 2,
@@ -94,7 +96,8 @@ enemies_data = {
             'collision_mask': ['player', 'projectiles'],
             "c_width": 64,
             'c_height': 64,
-            'sprite': CustomSprite('Assets/Drone_2.png', 64)
+            'sprite': CustomSprite('Assets/Drone_2.png', 64),
+            'points': 100
     },
     'Bot_1': {
         'spd': 3,
@@ -102,7 +105,8 @@ enemies_data = {
         'collision_mask': ['player', 'projectiles'],
         "c_width": 60,
         'c_height': 32,
-        'sprite': CustomSprite('Assets/Bot_1.png', 64)
+        'sprite': CustomSprite('Assets/Bot_1.png', 64),
+        'points': 200
     },
     'Bot_2': {
         'spd': 3,
@@ -110,7 +114,8 @@ enemies_data = {
         'collision_mask': ['player', 'projectiles'],
         "c_width": 60,
         'c_height': 32,
-        'sprite': CustomSprite('Assets/Bot_2.png', 64)
+        'sprite': CustomSprite('Assets/Bot_2.png', 64),
+        'points': 200
     },
     'Ship_1': {
         'spd': 4,
@@ -118,7 +123,8 @@ enemies_data = {
         'collision_mask': ['player', 'projectiles'],
         "c_width": 64,
         'c_height': 64,
-        'sprite': CustomSprite('Assets/Ship_1.png', 64)
+        'sprite': CustomSprite('Assets/Ship_1.png', 64),
+        'points': 300
     },
     'Ship_2': {
         'spd': 4,
@@ -126,6 +132,7 @@ enemies_data = {
         'collision_mask': ['player', 'projectiles'],
         "c_width": 64,
         'c_height': 64,
-        'sprite': CustomSprite('Assets/Ship_2.png', 64)
+        'sprite': CustomSprite('Assets/Ship_2.png', 64),
+        'points': 300
     }
 }
