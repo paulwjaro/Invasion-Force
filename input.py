@@ -8,6 +8,7 @@ class InputHandler:
         self.key_d = False
         self.key_space = False
         self.key_enter = False
+        self.enter_pressed = False
 
     def game_input(self):
         for event in pygame.event.get():
@@ -31,3 +32,4 @@ class InputHandler:
                     self.key_space = False
                 if event.key == pygame.K_RETURN:
                     self.key_enter = False
+                    self.enter_pressed = False

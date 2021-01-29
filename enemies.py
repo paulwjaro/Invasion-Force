@@ -100,7 +100,7 @@ enemies_data = {
             'points': 100
     },
     'Bot_1': {
-        'spd': 3,
+        'spd': 2.5,
         'collision_layer': 'enemies',
         'collision_mask': ['player', 'projectiles'],
         "c_width": 60,
@@ -109,7 +109,7 @@ enemies_data = {
         'points': 200
     },
     'Bot_2': {
-        'spd': 3,
+        'spd': 2.5,
         'collision_layer': 'enemies',
         'collision_mask': ['player', 'projectiles'],
         "c_width": 60,
@@ -118,7 +118,7 @@ enemies_data = {
         'points': 200
     },
     'Ship_1': {
-        'spd': 4,
+        'spd': 3,
         'collision_layer': 'enemies',
         'collision_mask': ['player', 'projectiles'],
         "c_width": 64,
@@ -127,7 +127,7 @@ enemies_data = {
         'points': 300
     },
     'Ship_2': {
-        'spd': 4,
+        'spd': 3,
         'collision_layer': 'enemies',
         'collision_mask': ['player', 'projectiles'],
         "c_width": 64,

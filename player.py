@@ -1,5 +1,5 @@
+import game
 from game_objects import GameObject
-from gamefx import CustomSprite
 from projectiles import *
 
 
@@ -12,9 +12,14 @@ class Player(GameObject):
         self.fired = False
         self.right_axis = 0
         self.left_axis = 0
+        self.game_started = False
 
     def step(self):
         self.move(self.right_axis, self.left_axis)
+
+    def play(self):
+        if self.game_started:
+            GameObject.play(self)
 
     def fire(self, _screen, _collision_layer, _mask_list):
         self.fired = True

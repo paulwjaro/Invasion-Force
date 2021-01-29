@@ -35,6 +35,7 @@ class GameObject:
         return None
 
     def play(self):
+        self.run_timers()
         self.step()
         if self.sprite is not None:
             self.draw(self.screen)

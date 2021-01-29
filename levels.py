@@ -10,30 +10,31 @@ class Level:
         self.handler = _object_handler
         self.level_data = _level_data
         self.wave_count = len(self.level_data['waves'])
+        self.current_wave = 1
         self.wave_list = []
         self.timers = []
         self.level_started = False
 
     def create(self):
-        for wave in range(self.wave_count):
+        for wave in range(len(self.level_data['waves'])):
             self.create_wave(wave)
 
     def run(self):
         if self.level_started:
-            if len(self.wave_list) > 0:
-                if self.wave_list[0].finished:
-                    self.wave_list.pop(0)
-                else:
-                    self.wave_list[0].run()
+
+            if self.wave_list[self.current_wave - 1].finished:
+                self.current_wave += 1
+            else:
+                self.wave_list[self.current_wave - 1].run()
 
     def create_wave(self, _current_wave):
-        new_wave = Wave(self.screen, self.timers, self.handler, self.level_data['waves'][str(_current_wave)])
+        new_wave = Wave(self.screen, self.timers, self.handler, self.level_data['waves'][str(_current_wave)], self)
         new_wave.create_strands(_current_wave)
         self.wave_list.append(new_wave)
 
 
 class Wave:
-    def __init__(self, _screen, _timers, _object_handler, _wave_data):
+    def __init__(self, _screen, _timers, _object_handler, _wave_data, _owner):
         self.screen = _screen
         self.handler = _object_handler
         self.timers = _timers
@@ -42,6 +43,7 @@ class Wave:
         self.strand_list = []
         self.current_strand = 0
         self.finished = False
+        self.owner = _owner
 
     def create_strands(self, _current_wave):
         for s in range(self.strand_count):
@@ -60,6 +62,7 @@ class Wave:
                 self.current_strand = 0
         else:
             self.finished = True
+            self.owner.current_wave += 1
 
 
 class Strand:
@@ -120,10 +123,6 @@ class ObjectHandler:
         self.star_generator = StarGen(self.screen)
 
     def create(self):
-        data = player_data['sprites']['0']
-        self.player = Player(self.screen, 320, 460, data['c_width'], data['c_height'], data['spd'], data['collision_layer'], data['collision_mask'],
-                             _sprite=data['sprite'])
-        self.add_object_to_game(self.player)
         self.star_generator.star_scatter(50)
 
     def object_handler(self, _screen):
@@ -133,7 +132,6 @@ class ObjectHandler:
                 if _object.destroyed:
                     if type(_object) == Enemy:
                         self.score += _object.points
-                        print(self.score)
                     self.active_objects.pop(self.active_objects.index(_object))
 
                 else:

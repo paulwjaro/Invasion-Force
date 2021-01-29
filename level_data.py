@@ -21,33 +21,18 @@ levels = {
             '0': {
                 'strands': {
                     '0': {
-                        'length': 6,
+                        'length': 2,
                         'enemy': enemies_data['Drone_1'],
                         'path': path_system.path_list[0]
-                    },
-                    '1': {
-                        'length': 6,
-                        'enemy': enemies_data['Drone_2'],
-                        'path': path_system.path_list[1]
                     }
                 }
             },
             '1': {
                 'strands': {
                     '0': {
-                        'length': 7,
-                        'enemy': enemies_data['Drone_1'],
-                        'path': path_system.path_list[0]
-                    },
-                    '1': {
-                        'length': 7,
-                        'enemy': enemies_data['Bot_1'],
-                        'path': path_system.path_list[1]
-                    },
-                    '2': {
-                        'length': 7,
+                        'length': 3,
                         'enemy': enemies_data['Drone_2'],
-                        'path': path_system.path_list[2]
+                        'path': path_system.path_list[1]
                     }
                 }
             },
@@ -58,17 +43,17 @@ levels = {
             '0': {
                 'strands': {
                     '0': {
-                        'length': 6,
-                        'enemy': enemies_data['Drone_1'],
-                        'path': path_system.path_list[0]
+                        'length': 3,
+                        'enemy': enemies_data['Bot_1'],
+                        'path': path_system.path_list[2]
                     }
                 }
             },
             '1': {
                 'strands': {
                     '0': {
-                        'length': 7,
-                        'enemy': enemies_data['Drone_2'],
+                        'length': 4,
+                        'enemy': enemies_data['Bot_2'],
                         'path': path_system.path_list[0]
                     }
                 }
@@ -80,18 +65,18 @@ levels = {
             '0': {
                 'strands': {
                     '0': {
-                        'length': 6,
-                        'enemy': enemies_data['Drone_1'],
-                        'path': path_system.path_list[0]
+                        'length': 3,
+                        'enemy': enemies_data['Ship_1'],
+                        'path': path_system.path_list[2]
                     }
                 }
             },
             '1': {
                 'strands': {
                     '0': {
-                        'length': 7,
-                        'enemy': enemies_data['Drone_2'],
-                        'path': path_system.path_list[0]
+                        'length': 4,
+                        'enemy': enemies_data['Ship_2'],
+                        'path': path_system.path_list[1]
 
                     }
                 }
